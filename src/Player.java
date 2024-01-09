@@ -35,7 +35,7 @@ public class Player {
     public QuestionAnswered respond(Question question){
         return new QuestionAnswered(question, false);
     }
-    public void turn(ArrayList<HistoryObject> history){
+    public void turn(ArrayList<QuestionAnswered> history, ArrayList<SetAnswered> setHistory){
         
     }
     //TEST METHOD (do not use in actual game)

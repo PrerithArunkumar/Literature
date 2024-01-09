@@ -3,7 +3,8 @@ import java.util.ArrayList;
 public class Game {
     private Player[] players;
     private Deck gameDeck;
-    private ArrayList<HistoryObject> history;
+    private ArrayList<QuestionAnswered> history;
+    private ArrayList<SetAnswered> setHistory;
     private Player[] firstTeam;
     private Player[] secondTeam;
     private int firstTeamPoints;
@@ -62,9 +63,9 @@ public class Game {
         history.add(questionAnswered);
         if (questionAnswered.isSuccess()){
             questionAnswered.getPlayer().fillHand(questionAnswered.getPlayerAnswering().popCard(questionAnswered.getCardRequesting()));
-            questionAnswered.getPlayer().turn(history);
+            questionAnswered.getPlayer().turn(history, setHistory);
         }else{
-            questionAnswered.getPlayerAnswering().turn(history);
+            questionAnswered.getPlayerAnswering().turn(history, setHistory);
         }
     }
     public void callSet(Set set){
@@ -80,7 +81,7 @@ public class Game {
         }
     }
     public void updateSet(SetAnswered setAnswered){
-        history.add(setAnswered);
+        setHistory.add(setAnswered);
         if (setAnswered.isSuccess()){
             if (firstTeam[0] == setAnswered.getPlayer() || firstTeam[1] == setAnswered.getPlayer() || firstTeam[2] == setAnswered.getPlayer()){
                 firstTeamPoints++;
@@ -88,7 +89,7 @@ public class Game {
                 if (firstTeamPoints > 4){
                     System.out.println("Team 1 wins!");
                 }else{
-                    setAnswered.getPlayer().turn(history);
+                    setAnswered.getPlayer().turn(history, setHistory);
                 }
             }else{
                 secondTeamPoints++;
@@ -96,7 +97,7 @@ public class Game {
                 if (secondTeamPoints > 4){
                     System.out.println("Team 2 wins!");
                 }else{
-                    setAnswered.getPlayer().turn(history);
+                    setAnswered.getPlayer().turn(history, setHistory);
                 }
             }
         }else{
@@ -106,7 +107,7 @@ public class Game {
                 if (secondTeamPoints > 4){
                     System.out.println("Team 2 wins!");
                 }else{
-                    setAnswered.getPlayer().turn(history);
+                    setAnswered.getPlayer().turn(history, setHistory);
                 }
             }else{
                 firstTeamPoints++;
@@ -114,7 +115,7 @@ public class Game {
                 if (firstTeamPoints > 4){
                     System.out.println("Team 1 wins!");
                 }else{
-                    setAnswered.getPlayer().turn(history);
+                    setAnswered.getPlayer().turn(history, setHistory);
                 }
             }
         }

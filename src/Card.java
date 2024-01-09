@@ -102,6 +102,35 @@ public class Card {
         return set;
     }
 
+    public int getSetNumber(){
+        if (set == EIGHTSJOKERS){
+            if (suit == JOKERS){
+                return rank;
+            }
+            switch (suit){
+                case DIAMONDS:
+                    return 2;
+                case CLUBS:
+                    return 3;
+                case HEARTS:
+                    return 4;
+                case SPADES:
+                    return 5;
+                default: 
+                    return -1;
+            }
+        }else if (rank < 8){
+            return rank - 2;
+        }else if (rank > 8){
+            return rank - 9;
+        }
+        return -1;
+    }
+
+    public boolean isEightOrJoker(){
+        return ((rank == 8) || isJoker);
+    } 
+
     public static boolean isValidRank(int rank) {
         return TWO <= rank && rank <= ACE;
     }
